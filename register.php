@@ -1,4 +1,5 @@
 <?php
+session_start();
 require 'index.php';
 if (isset($_POST['submit'])) {
     include 'conn-db.php';
