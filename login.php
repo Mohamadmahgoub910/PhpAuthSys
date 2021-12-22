@@ -1,7 +1,5 @@
 <?php
-
 require 'index.php';
-
 if (isset($_SESSION['user'])) {
     header('location:profile.php');
     exit();
@@ -27,10 +25,7 @@ if (isset($_POST['submit'])) {
     if (empty($password)) {
         $errors[] = '<span style="color:red" >you must put a password</span>';
     }
-
-
-
-    // insert or errros 
+    // insert or errors 
     if (empty($errors)) {
 
         // echo "check db";
@@ -52,8 +47,22 @@ if (isset($_POST['submit'])) {
                     "name" => $data['name'],
                     "email" => $email,
                 ];
-                header('location:profile.php');
-            }
+                $_SESSION['prev']=$data['prev'];
+                    // header('location:home.php');
+                    if(isset($_SESSION['user'])){
+                        if ($_SESSION['prev']== 'user'){
+                            header('location:profile.php');
+                        }
+                        if ($_SESSION['prev']=='admin'){
+                            header('location:dashboard.php');
+                            }
+                        if ($_SESSION['prev']=='manager'){
+                            header('location:mnager.php');
+                            }
+                    }
+
+                }
+                
         }
     }
 }
@@ -73,6 +82,7 @@ if (isset($_POST['submit'])) {
         }
     }
     ?>
+
         <label>write your Email </label>
         <input type="text" value="<?php if (isset($_POST['email'])) {
                                     echo $_POST['email'];
@@ -80,7 +90,7 @@ if (isset($_POST['submit'])) {
         <label>write your password </label>
         <input type="password" name="password" placeholder="password"><br><br>
         <input type="submit" name="submit" value="Login">
-        <br><br>
-        create a new account <a href="register.php">register</a><br><br><br>
     </form>
+    <br><br>
+    create a new account <a href="register.php">register</a><br><br><br>
 </div>
