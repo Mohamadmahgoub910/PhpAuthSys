@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require 'index.php';
 if (isset($_POST['submit'])) {
     include 'conn-db.php';
@@ -46,10 +46,7 @@ if (isset($_POST['submit'])) {
         $_POST['name'] = '';
         $_POST['email'] = '';
 
-        $_SESSION['user'] = [
-            "name" => $name,
-            "email" => $email,
-        ];
+       
         echo '<h3>Successfully inserted</h3>';
         header('location:profile.php');
     } else {
@@ -59,6 +56,7 @@ if (isset($_POST['submit'])) {
 ?>
 <div style="text-align: center">Register
     <h1>Sign Up </h1>
+    
     <form method="post" action="register.php">
         <label>Name </label>
         <input type="text" name="name" value="<?php if (isset($_POST['name'])) {echo $_POST['name'];}?>"

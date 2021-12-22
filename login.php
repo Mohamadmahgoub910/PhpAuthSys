@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require 'index.php';
 
 if (isset($_SESSION['user'])) {
@@ -10,9 +10,12 @@ if (isset($_POST['submit'])) {
     include 'conn-db.php';
     $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
     $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
-
+    $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
     $errors = [];
-
+    $_SESSION['user'] = [
+        "name" => $name,
+        "email" => $email,
+    ];
 
     // validate email
     if (empty($email)) {
@@ -58,9 +61,10 @@ if (isset($_POST['submit'])) {
 ?>
 
 
-
-<form action="login.php" method="POST">
-    <?php
+<br><br>
+<div style="text-align: center;">
+    <form action="login.php" method="POST">
+        <?php
     if (isset($errors)) {
         if (!empty($errors)) {
             foreach ($errors as $msg) {
@@ -69,12 +73,14 @@ if (isset($_POST['submit'])) {
         }
     }
     ?>
-    <input type="text" value="<?php if (isset($_POST['email'])) {
+        <label>write your Email </label>
+        <input type="text" value="<?php if (isset($_POST['email'])) {
                                     echo $_POST['email'];
                                 } ?>" name="email" placeholder="email"><br><br>
-    <input type="password" name="password" placeholder="password"><br><br>
-    <input type="submit" name="submit" value="Login">
-    <br><br>
-    <a href="register.php">register</a><br><br><br>
-</form>
-?>
+        <label>write your password </label>
+        <input type="password" name="password" placeholder="password"><br><br>
+        <input type="submit" name="submit" value="Login">
+        <br><br>
+        create a new account <a href="register.php">register</a><br><br><br>
+    </form>
+</div>

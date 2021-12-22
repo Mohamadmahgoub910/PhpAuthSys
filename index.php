@@ -1,3 +1,7 @@
+<?php 
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,22 +16,27 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light collapseOnSelect">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="/">Home</a>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/register.php">Register</a>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/login.php">Login</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="/profile.php" id="navbarDropdown" role="button"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <?php if(isset($_SESSION['user']['name'])){echo $_SESSION['user']['name'];} ?>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <?php if(isset($_SESSION['user']['name'])): ?>
+                        <a class="dropdown-item" href="/logout.php">logout</a>
+                        <?php else : ?>
+                        <a class="dropdown-item" href="/login.php">login</a>
+                        <a class="dropdown-item" href="/register.php">Register</a>
+                        <?php endif ?>
+                    </div>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/profile.php">Profile</a>
-                </li>
-
-
             </ul>
         </div>
     </nav>
